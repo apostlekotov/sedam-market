@@ -1,0 +1,56 @@
+[
+  {
+    "id": "che",
+    "town": "м. Чернігів",
+    "shops": [
+      {
+        "id": "G68Q+M6",
+        "address": "вул. Красносільского, 61",
+        "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4965.6175366546695!2d31.233631333415115!3d51.516724279636655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xac0b3216462a659c!2z0KHQtdC00LDQvC3QvNCw0YDQutC10YI!5e0!3m2!1sru!2sua!4v1578695437986!5m2!1sru!2sua"
+      },
+      {
+        "id": "F7VW+XR",
+        "address": "пр-т Перемоги, 91",
+        "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4967.987009547381!2d31.292735633414285!3d51.494986679633115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d548f2986499a3%3A0x5d89d78939f74736!2z0L_RgNC-0YHQvy4g0J_QvtCx0LXQtNGLLCA5MSwg0KfQtdGA0L3QuNCz0L7Qsiwg0KfQtdGA0L3QuNCz0L7QstGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCAxNDAzOQ!5e0!3m2!1sru!2sua!4v1578695398096!5m2!1sru!2sua"
+      },
+      {
+        "id": "F8R4+V4",
+        "address": "вул. Родимцева, 5",
+        "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.6233835307235!2d31.30199095338138!3d51.49360347654966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5478098a9a86588f!2z0KHQtdC00LDQvC3QvNCw0YDQutC10YI!5e0!3m2!1sru!2sua!4v1578698085143!5m2!1sru!2sua"
+      }
+    ]
+  },
+  {
+    "id": "gor",
+    "town": "м. Городня",
+    "shops": [
+      {
+        "id": "VHRV+7W",
+        "address": "вул. Троїцька, 11",
+        "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.191739081257!2d31.592267496488862!3d51.890379021229286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xea51f284a7d79692!2z0JzQsNCz0LDQt9C40L0gItCh0LXQtNCw0Lwi!5e0!3m2!1sru!2sua!4v1578694996890!5m2!1sru!2sua"
+      }
+    ]
+  },
+  {
+    "id": "snow",
+    "town": "м. Сновськ",
+    "shops": [
+      {
+        "id": "RW8V+2H",
+        "address": "вул. Залізнична, 8",
+        "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3921.7261617843396!2d31.940607848154208!3d51.8150345297786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6d4e65abf2bd0481!2sSedam!5e0!3m2!1sru!2sua!4v1578694944742!5m2!1sru!2sua"
+      }
+    ]
+  },
+  {
+    "id": "rep",
+    "town": "смт. Ріпки",
+    "shops": [
+      {
+        "id": "R33M+54",
+        "address": "вул. Святомиколаївська, 97а",
+        "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4847.832579467556!2d31.07887541666918!3d51.80310448069396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa2c109426570b341!2sRipkyns%CA%B9ka%20Filiya%20Pp%20Sedam-Market!5e0!3m2!1sru!2sua!4v1578695280128!5m2!1sru!2sua"
+      }
+    ]
+  }
+]

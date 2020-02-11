@@ -1,0 +1,82 @@
+.work {
+  display: flex;
+  justify-content: center;
+  max-width: 72rem;
+  margin: auto;
+
+  p {
+    margin: 3rem;
+    font-style: italic;
+    font-size: 1.2em;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 3rem;
+    width: 100%;
+
+    .vacancy-preview {
+      display: flex;
+      flex-direction: column;
+      padding: 3rem 2rem;
+      border-radius: 1.25rem;
+      box-shadow: $shadow;
+      line-height: 2em;
+      margin: auto 0;
+
+      .name {
+        font-size: 1.8em;
+        font-weight: bold;
+      }
+
+      .vacancyAddress {
+        font-size: 1.2em;
+        line-height: 1.5rem;
+        color: $gray;
+      }
+    }
+
+    @include laptop {
+      grid-template-columns: 1fr 1fr;
+    }
+    @include tabletM {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* vacancy */
+
+.vacancy {
+  min-height: calc(100vh - 13.4rem);
+
+  .description,
+  .btn {
+    margin: 2rem 0;
+  }
+
+  .vacancy-wrapper {
+    max-width: 72rem;
+    margin: auto;
+  }
+
+  .vacancy-info {
+    li {
+      display: flex;
+      align-items: center;
+      font-size: 1.25em;
+      font-weight: bold;
+    }
+    i {
+      margin: 0.5rem 0.75rem 0.5rem 0;
+    }
+  }
+}
+
+/* teamwork */
+
+.teamwork-wrapper {
+  max-width: 72rem;
+  margin: auto;
+}

@@ -1,0 +1,17 @@
+// Sedam Market style
+
+// global
+@import '1-global/variables';
+@import '1-global/mixins';
+@import '1-global/base';
+@import '1-global/keyframes';
+
+// layouts
+@import '2-layouts/navbar';
+@import '2-layouts/main';
+@import '2-layouts/about';
+@import '2-layouts/sales';
+@import '2-layouts/work';
+
+// elements
+@import '3-elements/preloader';

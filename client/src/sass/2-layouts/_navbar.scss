@@ -1,0 +1,120 @@
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: #fff;
+  z-index: 5;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 6rem;
+    padding: 1rem 2rem;
+
+    #onoff {
+      display: none;
+    }
+
+    label {
+      display: none;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      transition: 0.3s linear;
+
+      &:hover {
+        transform: scale(0.95);
+      }
+
+      img:nth-child(1) {
+        height: 4rem;
+      }
+
+      img:nth-child(2) {
+        margin-left: 0.5rem;
+        height: 2.625rem;
+      }
+    }
+
+    nav {
+      position: relative;
+      height: 4rem;
+      font-size: 1.25em;
+      font-weight: bold;
+      line-height: 4rem;
+
+      a {
+        margin-left: 2rem;
+        letter-spacing: 1px;
+        background-color: #fff;
+
+        &.active {
+          color: $green;
+        }
+      }
+
+      @include tabletL {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 5rem;
+        left: 0;
+        width: 100%;
+        height: auto;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s linear;
+
+        a {
+          font-size: 1.5rem;
+          margin: 0;
+          padding: 0 2rem;
+        }
+      }
+    }
+
+    @include tabletL {
+      #onoff {
+        &:checked ~ nav {
+          opacity: 1;
+          pointer-events: auto;
+        }
+        &:checked ~ label i::before {
+          content: '\f00d';
+        }
+      }
+
+      label {
+        display: inline-block;
+        i {
+          font-size: 2.5rem;
+        }
+      }
+    }
+  }
+
+  @include laptop {
+    div {
+      height: 5rem;
+      padding: 1rem;
+
+      .logo {
+        img:nth-child(1) {
+          height: 3.5rem;
+        }
+
+        img:nth-child(2) {
+          display: none;
+        }
+      }
+    }
+
+    nav {
+      height: 3rem;
+      line-height: 3rem;
+    }
+  }
+}

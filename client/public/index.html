@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="keywords"
+      content="седам, седам маркет, акції седам, акции чернигов, скидки седам, знижки чернігів, магазин чернігів, магазин чернигов, дешеві продукти, краща мережа супермаркетів, маркет, мережа № 1 в україні, низькі ціни на продукти, продуктовий магазин"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="%PUBLIC_URL%/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="%PUBLIC_URL%/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="194x194"
+      href="%PUBLIC_URL%/favicon/favicon-194x194.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="%PUBLIC_URL%/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="%PUBLIC_URL%/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="%PUBLIC_URL%/favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="%PUBLIC_URL%/favicon/safari-pinned-tab.svg"
+      color="#00b90a"
+    />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon/favicon.ico" />
+    <meta name="apple-mobile-web-app-title" content="Sedam" />
+    <meta name="application-name" content="Sedam" />
+    <meta name="msapplication-TileColor" content="#00b90a" />
+    <meta
+      name="msapplication-config"
+      content="%PUBLIC_URL%/favicon/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.10.1/css/all.css"
+      SameSite="None"
+    />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!--
+      ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+      ▒▒▄▀▀▀▀▀▄▒▒▒▒▒▄▄▄▄▄▒▒▒
+      ▒▐░▄░░░▄░▌▒▒▄█▄█▄█▄█▄▒
+      ▒▐░▀▀░▀▀░▌▒▒▒▒▒░░░▒▒▒▒
+      ▒▒▀▄░═░▄▀▒▒▒▒▒▒░░░▒▒▒▒
+      ▒▒▐░▀▄▀░▌▒▒▒▒▒▒░░░▒▒▒▒
+                      by Kotov
+    -->
+
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      SameSite="None"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"
+      SameSite="None"
+    ></script>
+    <script>
+      $(document).ready(function() {
+        $('nav > a').click(function() {
+          $('#onoff').prop('checked', false);
+        });
+
+        $('.logo').click(function() {
+          $('#onoff').prop('checked', false);
+        });
+
+        $('a[href^="/"]').click(function() {
+          $('#app').scrollTop(0, 0);
+        });
+      });
+    </script>
+  </body>
+</html>

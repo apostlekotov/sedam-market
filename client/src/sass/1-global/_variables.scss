@@ -1,0 +1,26 @@
+// variables
+$black: #323232;
+$gray: #bfbfbf;
+$green: #00b90a;
+$tomato: #ff0002;
+$gradient-green: linear-gradient(
+  315deg,
+  rgb(0, 153, 51) 0%,
+  rgb(0, 204, 0) 100%
+);
+$gradient-tomato: linear-gradient(
+  315deg,
+  rgb(255, 0, 51) 0%,
+  rgb(255, 0, 2) 100%
+);
+$shadow: 0 16px 24px rgba(50, 50, 50, 0.2);
+
+// media breakpoints
+$desktop: 85em; // 1360px
+$laptopL: 75em; // 1200px
+$laptop: 60em; // 960px
+$tabletL: 55em; // 880px
+$tabletM: 45em; // 720px
+$tabletS: 32em; // 512px
+$mobileL: 26em; // 414px
+$mobileS: 20em; // 320px

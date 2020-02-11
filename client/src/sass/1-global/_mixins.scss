@@ -1,0 +1,83 @@
+// animation
+@mixin onLoadTransition {
+  & > .intro {
+    .intro-welcome {
+      @for $i from 1 through 4 {
+        & > *:nth-child(#{$i}) {
+          animation: fadeInDown 0.8s #{($i - 1) * 0.05}s;
+        }
+      }
+    }
+
+    .intro-img {
+      animation: fadeInRight 0.8s 0.2s;
+
+      @include laptop {
+        animation: fadeInDown 0.8s 0.2s;
+      }
+    }
+
+    i {
+      animation: fadeInDown 0.8s 0.25s;
+    }
+  }
+
+  & > *:nth-child(2):not(.intro) {
+    animation: fadeInDown 0.8s;
+  }
+
+  @for $i from 3 through 15 {
+    & > *:nth-child(#{$i}) {
+      animation: fadeInDown 0.8s #{$i * 0.1}s;
+    }
+  }
+}
+
+// responsive
+@mixin laptopL {
+  @media (max-width: $laptopL) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin tabletL {
+  @media (max-width: $tabletL) {
+    @content;
+  }
+}
+
+@mixin tabletM {
+  @media (max-width: $tabletM) {
+    @content;
+  }
+}
+
+@mixin tabletS {
+  @media (max-width: $tabletS) {
+    @content;
+  }
+}
+
+@mixin mobileL {
+  @media (max-width: $mobileL) {
+    @content;
+  }
+}
+
+@mixin mobileM {
+  @media (max-width: $mobileM) {
+    @content;
+  }
+}
+
+@mixin mobileS {
+  @media (max-width: $mobileS) {
+    @content;
+  }
+}

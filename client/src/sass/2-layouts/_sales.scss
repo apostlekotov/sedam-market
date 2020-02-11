@@ -1,0 +1,230 @@
+.sales {
+  min-height: calc(100vh - 13.4rem);
+
+  a.btn {
+    display: none;
+  }
+}
+
+.sales-preview {
+  label.btn {
+    display: none;
+  }
+}
+
+.sale-event {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 72rem;
+  margin: 0 auto 4rem auto;
+
+  &:nth-last-child(1) {
+    margin: 0 auto;
+  }
+
+  .sale-banner {
+    max-width: 72rem;
+    height: 20rem;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    div {
+      max-width: 60%;
+      position: relative;
+      margin: 5rem;
+      color: #fff;
+      z-index: 2;
+    }
+
+    span {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.5em;
+      font-weight: 300;
+      line-height: 1.25em;
+
+      @include mobileL {
+        display: none;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+    }
+
+    @include laptop {
+      height: auto;
+
+      div {
+        max-width: 75%;
+        margin: 3rem;
+      }
+    }
+    @include mobileL {
+      width: 100%;
+      img {
+        width: 120%;
+        height: 120%;
+      }
+
+      div {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.sale-products {
+  display: flex;
+  justify-content: center;
+  max-width: 72rem;
+  margin: auto;
+
+  .sale-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 3rem;
+    width: 100%;
+    margin: 3rem 0;
+
+    .product {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2rem;
+      border-radius: 1.25rem;
+      box-shadow: $shadow;
+
+      &:nth-child(n + 4) {
+        display: none;
+      }
+
+      .product-img {
+        margin: auto;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .product-name {
+        font-size: 1.5em;
+        line-height: 2rem;
+        font-weight: bold;
+      }
+
+      .product-price {
+        display: flex;
+        flex-direction: row;
+        font-size: 16px;
+
+        & > span {
+          font-size: 4em;
+          color: $green;
+          font-weight: 700;
+        }
+
+        div {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin: 0 0 0.75rem 0.3rem;
+
+          span:nth-child(1) {
+            font-size: 1.75em;
+            color: $green;
+            font-weight: 700;
+          }
+
+          span:nth-child(2) {
+            font-size: 0.9em;
+            color: $gray;
+            font-weight: normal;
+            text-decoration: line-through;
+          }
+        }
+      }
+
+      .product-period {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 0.75em;
+        color: $gray;
+        font-weight: 600;
+      }
+    }
+
+    @include laptop {
+      grid-gap: 2rem;
+      grid-template-columns: 1fr 1fr;
+
+      .product:nth-child(3) {
+        display: none;
+      }
+    }
+    @include tabletM {
+      grid-template-columns: 1fr;
+
+      .product:nth-child(3) {
+        display: flex;
+      }
+    }
+  }
+
+  @include tabletM {
+    max-width: 26rem;
+  }
+}
+
+label.btn::before {
+  content: 'Детальніше';
+}
+
+.onoff-sale {
+  display: none;
+
+  &:checked ~ label::before {
+    content: 'Сховати';
+  }
+
+  &:checked ~ .sale-products > .sale-grid {
+    grid-template-rows: auto;
+  }
+
+  &:checked ~ .sale-products > .sale-grid > .product:nth-child(n + 4) {
+    display: flex;
+  }
+  &:checked ~ .sale-products > .sale-grid > .product:nth-child(3) {
+    display: flex;
+  }
+}

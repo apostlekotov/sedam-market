@@ -1,6 +1,6 @@
 # Sedam Market
 
-> Website for grocery - [sedam.cn.ua](https://sedam.cn.ua)
+> Website for grocery - [sedam.com.ua](https://sedam.com.ua)
 
 ## Set up (Web App)
 

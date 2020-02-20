@@ -14,7 +14,7 @@ const advancedResults = require('../middleware/advancedResults');
 
 const { auth } = require('../middleware/auth');
 
-router.route('/register').post(auth, register);
+router.route('/register').post(register); // auth в продакшене
 router.route('/users').get(advancedResults(User), auth, getUsers);
 router.route('/users/:id').delete(auth, deleteUser);
 router.route('/getToken').post(getToken);

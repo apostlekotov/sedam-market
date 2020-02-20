@@ -42,7 +42,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Mount routes
 app.use('/api/sales', sales);

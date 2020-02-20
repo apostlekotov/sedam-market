@@ -8,7 +8,8 @@
     "server": "nodemon server",
     "client": "npm start --prefix client",
     "gulp": "npm run style --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run gulp\""
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run gulp\"",
+    "prod": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Kotov",
   "license": "ISC",

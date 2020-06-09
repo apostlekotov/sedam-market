@@ -3,20 +3,28 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Product from './Product';
 
-const SaleEvent = ({ id, name, photo, description, period, products }) => {
+const SaleEvent = ({
+  id,
+  name,
+  photo,
+  description,
+  period,
+  fontSize,
+  products,
+}) => {
   return (
     <div className='sale-event'>
       <div className='sale-banner'>
         <img src={photo} alt={name} />
         <div>
-          <span>{name}</span>
+          <span style={{ fontSize: fontSize + 'px' }}>{name}</span>
           <p>{description}</p>
         </div>
       </div>
       <input type='checkbox' id={`event-${id}`} className='onoff-sale'></input>
       <div className='sale-products'>
         <div className='sale-grid'>
-          {products.map(product => (
+          {products.map((product) => (
             <Product key={product.id} product={product} period={period} />
           ))}
         </div>
@@ -35,7 +43,8 @@ SaleEvent.propType = {
   photo: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   period: PropTypes.string.isRequired,
-  products: PropTypes.array.isRequired
+  fontSize: PropTypes.string.isRequired,
+  products: PropTypes.array.isRequired,
 };
 
 export default SaleEvent;

@@ -7,7 +7,7 @@ const ProductSchema = new mongoose.Schema(
       required: [true, 'Введіть назву продукту'],
       unique: true,
       trim: true,
-      maxlength: [40, 'Назва не може перевищувати 40 символів']
+      maxlength: [60, 'Назва не може перевищувати 60 символів']
     },
     salePrice: {
       type: String,

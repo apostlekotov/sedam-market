@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.19.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-sass": "^4.0.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "gulp-watch": "^5.0.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
     "react-helmet": "^5.2.1",
     "react-router-dom": "^5.1.2",
     "react-router-scroll-top": "^0.2.1",
-    "react-scripts": "^3.3.1",
+    "react-scripts": "^3.4.0",
     "react-transition-group": "^4.3.0"
   },
   "scripts": {
@@ -19,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "style": "gulp watch"
+    "gulp": "gulp watch"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -13,16 +13,7 @@ const Contacts = () => {
           <ul>
             <li>
               <a
-                href='https://kotov.com.ua/'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <i className='fas fa-envelope'></i> feedback@sedam.com.ua
-              </a>
-            </li>
-            <li>
-              <a
-                href='https://kotov.com.ua/'
+                href='tel:+0462723476'
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -31,21 +22,12 @@ const Contacts = () => {
             </li>
             <li>
               <a
-                href='https://kotov.com.ua/'
+                href='https://goo.gl/maps/hahs4v3KpPC3kqhP7'
                 target='_blank'
                 rel='noopener noreferrer'
               >
                 <i className='fas fa-building'></i> м. Чернігів, вул.
                 Інструментальна 5
-              </a>
-            </li>
-            <li>
-              <a
-                href='https://kotov.com.ua/'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <i className='fab fa-facebook-square'></i> facebook.com/sedam
               </a>
             </li>
           </ul>

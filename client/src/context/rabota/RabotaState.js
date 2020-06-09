@@ -4,7 +4,7 @@ import RabotaContext from './rabotaContext';
 import RabotaReducer from './rabotaReducer';
 import { GET_RABOTA_PREVIEW, GET_RABOTA_VACANCY, SET_LOADING } from '../types';
 
-const company = '339772';
+const company = '9476846';
 
 const RabotaState = props => {
   const initialState = {
@@ -20,7 +20,7 @@ const RabotaState = props => {
     setLoading();
 
     const res = await axios.get(
-      `https://ua-api.rabota.ua/company/${company}/vacancies?count=1000`
+      `https://cors-anywhere.herokuapp.com/https://ua-api.rabota.ua/company/${company}/vacancies?count=1000`
     );
 
     dispatch({
@@ -34,7 +34,7 @@ const RabotaState = props => {
     setLoading();
 
     const res = await axios.get(
-      `https://ua-api.rabota.ua/vacancy?id=${id}&ukrainian=true'`
+      `https://cors-anywhere.herokuapp.com/https://ua-api.rabota.ua/vacancy?id=${id}&ukrainian=true'`
     );
 
     dispatch({

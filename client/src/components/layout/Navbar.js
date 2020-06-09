@@ -19,7 +19,6 @@ function Navbar() {
           <NavLink to='/about'>Про нас</NavLink>
           <NavLink to='/sales'>Акції</NavLink>
           <NavLink to='/work'>Робота в "Седам"</NavLink>
-          <NavLink to='/coop'>Співпраця</NavLink>
           <a href='#contacts'>Контакти</a>
         </nav>
       </div>

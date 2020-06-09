@@ -4,10 +4,10 @@ import SaleContext from './saleContext';
 import SaleReducer from './saleReducer';
 import { GET_ALL_EVENTS, GET_SINGLE_EVENT, SET_LOADING } from '../types';
 
-const SaleState = props => {
+const SaleState = (props) => {
   const initialState = {
     sales: [],
-    loading: false
+    loading: false,
   };
 
   const [state, dispatch] = useReducer(SaleReducer, initialState);
@@ -16,11 +16,11 @@ const SaleState = props => {
   const getAllEvents = async () => {
     setLoading();
 
-    const res = await axios.get('http://localhost:5000/api/sales');
+    const res = await axios.get('api/sales?sort=-createdAt'); // https:/sedam.com.ua/
 
     dispatch({
       type: GET_ALL_EVENTS,
-      payload: res.data.data
+      payload: res.data.data,
     });
   };
 
@@ -28,11 +28,11 @@ const SaleState = props => {
   const getSingleEvent = async () => {
     setLoading();
 
-    const res = await axios.get('http://localhost:5000/api/sales?limit=1');
+    const res = await axios.get('api/sales?sort=-createdAt&limit=1'); // http://localhost:5000
 
     dispatch({
       type: GET_SINGLE_EVENT,
-      payload: res.data.data
+      payload: res.data.data,
     });
   };
 
@@ -46,7 +46,7 @@ const SaleState = props => {
         loading: state.loading,
         getAllEvents,
         getSingleEvent,
-        setLoading
+        setLoading,
       }}
     >
       {props.children}

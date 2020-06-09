@@ -1,0 +1,14 @@
+.DS_STORE
+.vscode
+node_modules
+config/config.env
+
+bot/__pycache__
+bot/config.py
+*.pyc
+
+client/build
+client/public/img/sales/*.jpg
+client/public/img/sales/*.png
+!client/public/img/sales/default-product-img.png
+!client/public/img/sales/default-sale-img.jpg

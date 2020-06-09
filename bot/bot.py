@@ -18,12 +18,19 @@ def download_photo(m, id, prefix):
   downloaded_file = bot.download_file(file_id_info.file_path)
   photo = '/img/sales/{}_{}.{}'.format(prefix, id, file_name.split('.')[-1])
 
-  full_path = config.PUBLIC_PATH + photo
+  public_path = config.PUBLIC_PATH + photo
+  build_path = config.BUILD_PATH + photo
 
-  if (path.exists(full_path)):
-    remove(full_path)
+  if (path.exists(build_path)):
+    remove(build_path)
 
-  with open(full_path, 'wb') as f:
+  if (path.exists(public_path)):
+    remove(public_path)
+
+  with open(build_path, 'wb') as f:
+    f.write(downloaded_file)
+
+  with open(public_path, 'wb') as f:
     f.write(downloaded_file)
 
   return photo
@@ -71,18 +78,18 @@ def single_sale(m, id):
   try:
     markup = types.InlineKeyboardMarkup()
 
-    res = req.get_single_sale(id) # get sale event by id 
+    res = req.get_single_sale(id) # get sale event by id
 
-    if res['success']:       
+    if res['success']:
       # send sale image
       try:
-        img = open( config.PUBLIC_PATH + '/img/sales/sale_' + id + '.jpg' , 'rb' )
+        img = open( config.BUILD_PATH + '/img/sales/sale_' + id + '.jpg' , 'rb' )
       except IOError:
-        img = open( config.PUBLIC_PATH + '/img/sales/default-sale-img.jpg' , 'rb' ) 
+        img = open( config.PUBLIC_PATH + '/img/sales/default-sale-img.jpg' , 'rb' )
 
       # sale event description here
-      name = res['name'].encode('utf-8')
-      desc = res['description'].encode('utf-8')
+      name = str(res['name'])
+      desc = str(res['description'])
       period = res['period']
 
       text = '*{}*\n\n{}\n\n_{}_'.format( name, desc, period )
@@ -95,11 +102,12 @@ def single_sale(m, id):
           markup.add(btn)
 
       # actions to sale event
-      btn_load_img = create_btn( 'Змінити фото 🖼', 'change_img_sale_' + id )
-      btn_delete = create_btn( 'Видалити ❌', 'delete_sale_' + id )
+      btn_load_img = create_btn( '🖼', 'change_img_sale_' + id )
+      btn_update = create_btn( '✏️', 'update_sale_' + id )
+      btn_delete = create_btn( '❌', 'delete_sale_' + id )
       btn_add_product = create_btn( 'Додати продукт 🛒', 'add_product_' + id )
       
-      markup.row( btn_load_img, btn_delete )
+      markup.row( btn_load_img, btn_update, btn_delete )
       markup.add( btn_add_product )
 
       bot.send_photo( m.chat.id, photo = img, caption = text, parse_mode = 'Markdown', reply_markup = markup )
@@ -112,7 +120,7 @@ def single_sale(m, id):
 
 # create sale event
 def create_sale(m):
-  msg = bot.send_message( m.chat.id, '🤖 Для створення нової акційної події надішліть мені повідомлення по формі:\n\n*Назва події*\nОпис (до 500 символів)\nДата події (dd.mm.yyyy - dd.mm.yyyy)', parse_mode = 'Markdown', reply_markup = cancel_murkup() )
+  msg = bot.send_message( m.chat.id, '🤖 Для створення нової акційної події надішліть мені повідомлення по формі:\n\n*Назва події*\nОпис (до 500 символів)\nДата події (dd.mm.yyyy - dd.mm.yyyy)\nРозмір шрифту (за замовчуванням 32, 2 символи)', parse_mode = 'Markdown', reply_markup = cancel_murkup() )
   bot.register_next_step_handler( msg, next_create_sale )
 
 # handle create event request
@@ -120,16 +128,19 @@ def create_sale(m):
 def next_create_sale(m, token = ''):
   try:
     try:
-      form = m.text.split('\n') # get info from message 
+      form = m.text.split('\n') # get info from message
     except IndexError:
       bot.send_message( m.chat.id, '🤖 Будь-ласка, дотримуйтесь формі' )
 
-    if len(form) == 3:
+    if len(form) >= 3:
       fields = {
-        'name': form[0].encode('utf-8'),
-        'desc': form[1].encode('utf-8'),
-        'period': form[2].encode('utf-8')
-      } 
+        'name': str(form[0]),
+        'desc': str(form[1]),
+        'period': str(form[2])
+      }
+
+      if len(form) == 4:
+        fields['fontSize'] = str(form[3])
 
       res = req.create_sale_event(fields, token)
 
@@ -137,7 +148,50 @@ def next_create_sale(m, token = ''):
         single_sale(m, res['data']['_id']) # show what you create
 
       elif res['error']:
-        err_msg = '\n'.join( res['error'].encode('utf-8').split(',')[::-1] ) # complex validation error message
+        err_msg = '\n'.join( str(res['error']).split(',')[::-1] ) # complex validation error message
+        bot.send_message( m.chat.id, err_msg )
+
+      else:
+        bot.send_message( m.chat.id, 'Помилка сервера, повторіть ще раз 😞' )
+
+    else:
+      bot.send_message( m.chat.id, '🤖 Будь-ласка, дотримуйтесь формі' )
+
+  except Exception as e:
+    print(repr(e))
+
+# update sale event
+def update_sale(m, id):
+  msg = bot.send_message( m.chat.id, '🤖 Для оновлення акційної події надішліть мені повідомлення по формі:\n\n*Назва події*\nОпис (до 500 символів)\nДата події (dd.mm.yyyy - dd.mm.yyyy)\nРозмір шрифту (за замовчуванням 32, 2 символи)', parse_mode = 'Markdown', reply_markup = cancel_murkup() )
+  bot.register_next_step_handler( msg, next_update_sale, id = id )
+
+# handle update event request
+@req.auth
+def next_update_sale(m, id, token = ''):
+  try:
+    try:
+      form = m.text.split('\n') # get info from message
+    except IndexError:
+      bot.send_message( m.chat.id, '🤖 Будь-ласка, дотримуйтесь формі' )
+
+    if len(form) >= 3:
+      fields = {
+        'id': id,
+        'name': str(form[0]),
+        'desc': str(form[1]),
+        'period': str(form[2])
+      }
+
+      if len(form) == 4:
+        fields['fontSize'] = str(form[3])
+
+      res = req.update_sale_event(fields, token)
+
+      if res['success']:
+        single_sale(m, res['data']['_id']) # show what you update
+
+      elif res['error']:
+        err_msg = '\n'.join( str(res['error']).split(',')[::-1] ) # complex validation error message
         bot.send_message( m.chat.id, err_msg )
 
       else:
@@ -164,14 +218,14 @@ def next_change_img_sale(m, id, token = ''):
     fields = {
       'id': id,
       'photo': photo
-    } 
+    }
 
     res = req.update_sale_photo(fields, token)
 
     if res['success']:
       single_sale(m, res['data']['_id']) # show what you update
     elif res['error']:
-      err_msg = '\n'.join( res['error'].encode('utf-8').split(',')[::-1] ) # complex validation error message
+      err_msg = '\n'.join( str(res['error']).split(',')[::-1] ) # complex validation error message
       bot.send_message( m.chat.id, err_msg )
     else:
       bot.send_message( m.chat.id, 'Помилка сервера, повторіть пізніше 😞' )
@@ -183,14 +237,14 @@ def next_change_img_sale(m, id, token = ''):
 @req.auth
 def delete_sale(call, id, token = ''):
   try:
-    res = req.delete_sale(id, token) 
+    res = req.delete_sale(id, token)
 
     if res['success']:
       bot.answer_callback_query( call.id, 'Успішно видалено ✅', show_alert = True ) # fancy alert
       bot.delete_message( call.message.chat.id, call.message.message_id )
 
     elif res['error']:
-      bot.answer_callback_query( call.id, res['error'].encode('utf-8'), show_alert = True )
+      bot.answer_callback_query( call.id, str(res['error']), show_alert = True )
 
     else:
       bot.answer_callback_query( call.id, 'Помилка сервера, повторіть пізніше', show_alert = True )
@@ -201,7 +255,7 @@ def delete_sale(call, id, token = ''):
 # get product by id
 def single_product(m, id):
   try:
-    res = req.get_single_product(id) # get sale event by id 
+    res = req.get_single_product(id) # get sale event by id
     markup = types.InlineKeyboardMarkup()
 
     if res['success']:
@@ -209,12 +263,12 @@ def single_product(m, id):
 
       # send product image
       try:
-        img = open( config.PUBLIC_PATH + '/img/sales/' + product['photo'].split('/')[-1], 'rb' )
+        img = open( config.BUILD_PATH + '/img/sales/' + product['photo'].split('/')[-1], 'rb' )
       except IOError:
-        img = open( config.PUBLIC_PATH + '/img/sales/default-product-img.png' , 'rb' ) 
+        img = open( config.PUBLIC_PATH + '/img/sales/default-product-img.png' , 'rb' )
 
       # product description here
-      name = product['name'].encode('utf-8')
+      name = str(product['name'])
       salePrice = product['salePrice']
       price = product['price']
 
@@ -233,7 +287,7 @@ def single_product(m, id):
   except Exception as e:
     print(repr(e))
 
-# add product to the sale 
+# add product to the sale
 def add_product(m, id):
   msg = bot.send_message( m.chat.id, '🤖 Для створення нового акційного продукта для події надішліть мені повідомлення по формі:\n\n*Назва продукта*\nАкційна ціна (наприклад: 19.99)\nПочаткова ціна (наприклад: 21.56)\n\n', parse_mode = 'Markdown', reply_markup = cancel_murkup() )
   bot.register_next_step_handler(msg, next_add_product, id = id)
@@ -243,17 +297,17 @@ def add_product(m, id):
 def next_add_product(m, id, token = ''):
   try:
     try:
-      form = m.text.split('\n') # get info from message 
+      form = m.text.split('\n') # get info from message
     except IndexError:
       bot.send_message( m.chat.id, '🤖 Будь-ласка, дотримуйтесь формі' )
     
     if len(form) == 3:
       fields = {
         'sale': id,
-        'name': form[0].encode('utf-8'),
-        'salePrice': form[1].encode('utf-8'),
-        'price': form[2].encode('utf-8')
-      } 
+        'name': str(form[0]),
+        'salePrice': str(form[1]),
+        'price': str(form[2])
+      }
 
       res = req.add_product(fields, token)
 
@@ -261,7 +315,7 @@ def next_add_product(m, id, token = ''):
         single_product(m, res['data']['_id']) # show what you create
 
       elif res['error']:
-        err_msg = '\n'.join( res['error'].encode('utf-8').split(',')[::-1] ) # complex validation error message
+        err_msg = '\n'.join( str(res['error']).split(',')[::-1] ) # complex validation error message
         bot.send_message( m.chat.id, err_msg )
 
       else:
@@ -288,33 +342,34 @@ def next_change_img_product(m, id, token = ''):
     fields = {
       'id': id,
       'photo': photo
-    } 
+    }
 
     res = req.update_product_photo(fields, token)
 
     if res['success']:
       single_product(m, res['data']['_id']) # show what you update
     elif res['error']:
-      err_msg = '\n'.join( res['error'].encode('utf-8').split(',')[::-1] ) # complex validation error message
+      err_msg = '\n'.join( str(res['error']).split(',')[::-1] ) # complex validation error message
       bot.send_message( m.chat.id, err_msg )
     else:
       bot.send_message( m.chat.id, 'Помилка сервера, повторіть пізніше 😞' )
 
   except Exception as e:
+    bot.send_message( m.chat.id, e )
     print(repr(e))
 
 # delete product with btn
 @req.auth
 def delete_product(call, id, token = ''):
   try:
-    res = req.delete_product(id, token) 
+    res = req.delete_product(id, token)
 
     if res['success']:
       bot.answer_callback_query( call.id, 'Успішно видалено ✅', show_alert = True ) # fancy alert
       bot.delete_message( call.message.chat.id, call.message.message_id )
 
     elif res['error']:
-      bot.answer_callback_query( call.id, res['error'].encode('utf-8'), show_alert = True )
+      bot.answer_callback_query( call.id, str(res['error']), show_alert = True )
 
     else:
       bot.answer_callback_query( call.id, 'Помилка сервера, повторіть пізніше', show_alert = True )
@@ -341,12 +396,12 @@ def users(m, token = '' ):
           markup.row( btn_user, btn_delete )
       
       markup.add( create_btn( 'Додати користувача ➕', 'register') ) # add a new user (see register)
-      markup.add( create_btn('◀️ Меню', 'menu') ) 
+      markup.add( create_btn('◀️ Меню', 'menu') )
       
       bot.edit_message_text( chat_id = m.chat.id, message_id = m.message_id, text = m.text, reply_markup = markup )
 
     elif res['error']:
-      bot.send_message( m.chat.id, res['error'].encode('utf-8') )
+      bot.send_message( m.chat.id, str(res['error']) )
 
     else:
       bot.send_message( m.chat.id, 'Помилка сервера, повторіть пізніше 😞' )
@@ -371,7 +426,7 @@ def next_register(m, token = ''):
       if fromUser.username:
         userName = fromUser.username
       else:
-        userName = fromUser.first_name.encode('utf-8') + ' ' + fromUser.last_name.encode('utf-8')
+        userName = str(fromUser.first_name) + ' ' + str(fromUser.last_name)
 
       res = req.register( str(userId), userName, token )
 
@@ -379,7 +434,7 @@ def next_register(m, token = ''):
         bot.send_message( m.chat.id, 'Заєрестровано ✅\n\n{}: {}'.format(userId, userName) )
         
       elif res['error']:
-        bot.send_message( m.chat.id, res['error'].encode('utf-8') ) # for validation
+        bot.send_message( m.chat.id, str(res['error']) ) # for validation
 
       else:
         bot.send_message( m.chat.id, 'Помилка сервера, повторіть пізніше 😞' )
@@ -414,7 +469,7 @@ def delete_user(call, id, token = ''):
             markup.row( btn_user, btn_delete )
       
         markup.add( create_btn( 'Додати користувача ➕', 'register') ) # add a new user (see register)
-        markup.add( create_btn('◀️ Меню', 'menu') ) 
+        markup.add( create_btn('◀️ Меню', 'menu') )
 
         bot.edit_message_text( chat_id = m.chat.id, message_id = m.message_id, text = m.text, reply_markup = markup )
 
@@ -422,7 +477,7 @@ def delete_user(call, id, token = ''):
         bot.answer_callback_query( call.id, 'Помилка сервера, повторіть пізніше 😞', show_alert = True )
 
     elif res['error']:
-      bot.answer_callback_query( call.id, res['error'].encode('utf-8'), show_alert = True )
+      bot.answer_callback_query( call.id, str(res['error']), show_alert = True )
 
     else:
       bot.answer_callback_query( call.id, 'Помилка сервера, повторіть пізніше', show_alert = True )
@@ -468,6 +523,11 @@ def callback_query(call):
       elif call.data.startswith('change_img_sale_'): # and ends with id
         bot.send_chat_action(call.message.chat.id, 'typing')
         change_img_sale( m = call.message, id = call.data.split('_')[-1] )
+        bot.answer_callback_query(call.id, '')
+
+      elif call.data.startswith('update_sale_'): # and ends with id
+        bot.send_chat_action(call.message.chat.id, 'typing')
+        update_sale( m = call.message, id = call.data.split('_')[-1] )
         bot.answer_callback_query(call.id, '')
 
       elif call.data.startswith('delete_sale_'): # and ends with id

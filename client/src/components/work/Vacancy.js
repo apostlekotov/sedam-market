@@ -42,79 +42,77 @@ const Vacancy = ({ match }) => {
     }
   });
 
-  return name ? (
-    loading ? (
-      <Spinner />
-    ) : (
-      <>
-        <section className='vacancy'>
-          <div className='section-header'>
-            <h1>Sedam</h1>
-            <h2>{name}</h2>
+  return loading ? (
+    <Spinner />
+  ) : name ? (
+    <>
+      <section className='vacancy'>
+        <div className='section-header'>
+          <h1>Sedam</h1>
+          <h2>{name}</h2>
+        </div>
+        <div className='vacancy-wrapper'>
+          <div className='vacancy-info'>
+            <ul>
+              {cityName || vacancyAddress ? (
+                <li>
+                  <i className='fas fa-map-marker-alt'></i> {cityName}
+                  {cityName && vacancyAddress ? ', ' : null}
+                  {vacancyAddress}
+                </li>
+              ) : (
+                ''
+              )}
+
+              {contactPhone ? (
+                <li>
+                  <a href={`tel:${contactPhone}`}>
+                    <i className='fas fa-phone-alt'></i> {contactPhone}{' '}
+                    {contactPerson ? `(${contactPerson})` : null}
+                  </a>
+                </li>
+              ) : (
+                ''
+              )}
+
+              {salary ? (
+                <li>
+                  <i className='fas fa-money-bill-wave'></i> {salary}
+                  {' грн. '}
+                  {salaryComment ? `(${salaryComment})` : null}
+                </li>
+              ) : (
+                ''
+              )}
+
+              {worktime || experience ? (
+                <li>
+                  <i className='fas fa-clock'></i> {worktime}
+                  {worktime && experience ? <br /> : null}
+                  {experience}
+                </li>
+              ) : (
+                ''
+              )}
+            </ul>
           </div>
-          <div className='vacancy-wrapper'>
-            <div className='vacancy-info'>
-              <ul>
-                {cityName || vacancyAddress ? (
-                  <li>
-                    <i className='fas fa-map-marker-alt'></i> {cityName}
-                    {cityName && vacancyAddress ? ', ' : null}
-                    {vacancyAddress}
-                  </li>
-                ) : (
-                  ''
-                )}
+          <div
+            className='description'
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></div>
+          <a
+            href={`https://rabota.ua/company${notebookId}/vacancy${match.params.vacancy}?mode=apply#apply`}
+            className='btn'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            Відгукнуться
+          </a>
+        </div>
+      </section>
 
-                {contactPhone ? (
-                  <li>
-                    <a href={`tel:${contactPhone}`}>
-                      <i className='fas fa-phone-alt'></i> {contactPhone}{' '}
-                      {contactPerson ? `(${contactPerson})` : null}
-                    </a>
-                  </li>
-                ) : (
-                  ''
-                )}
-
-                {salary ? (
-                  <li>
-                    <i className='fas fa-money-bill-wave'></i> {salary}
-                    {' грн. '}
-                    {salaryComment ? `(${salaryComment})` : null}
-                  </li>
-                ) : (
-                  ''
-                )}
-
-                {worktime || experience ? (
-                  <li>
-                    <i className='fas fa-clock'></i> {worktime}
-                    {worktime && experience ? <br /> : null}
-                    {experience}
-                  </li>
-                ) : (
-                  ''
-                )}
-              </ul>
-            </div>
-            <div
-              className='description'
-              dangerouslySetInnerHTML={{ __html: description }}
-            ></div>
-            <a
-              href={`https://rabota.ua/company${notebookId}/vacancy${match.params.vacancy}?mode=apply#apply`}
-              className='btn'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              Відгукнуться
-            </a>
-          </div>
-        </section>
-
-        <Contacts />
-      </>
-    )
+      <Contacts />
+    </>
   ) : (
     <NotFound />
   );

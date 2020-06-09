@@ -30,17 +30,28 @@ const Sales = () => {
           loading ? (
             <Spinner />
           ) : (
-            sales.map(({ id, name, photo, description, period, products }) => (
-              <SaleEvent
-                key={id}
-                id={id}
-                name={name}
-                photo={photo}
-                description={description}
-                period={period}
-                products={products}
-              />
-            ))
+            sales.map(
+              ({
+                id,
+                name,
+                photo,
+                description,
+                period,
+                fontSize,
+                products,
+              }) => (
+                <SaleEvent
+                  key={id}
+                  id={id}
+                  name={name}
+                  photo={photo}
+                  description={description}
+                  period={period}
+                  fontSize={fontSize}
+                  products={products}
+                />
+              )
+            )
           )
         ) : (
           <p>На жаль, акційних пропозицій зараз нема...</p>

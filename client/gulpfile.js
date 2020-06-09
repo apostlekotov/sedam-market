@@ -2,10 +2,13 @@ const { task, src, dest, series } = require('gulp');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');
 const autoprefixer = require('gulp-autoprefixer');
+// const imagemin = require('gulp-imagemin');
 
 path = {
   toSass: './src/sass/**/*.scss',
-  toCss: './src/css/'
+  toCss: './src/css/',
+  fromImg: './public/img/sales/*',
+  toImg: './build/img/sales'
 };
 
 task('style', () => {
@@ -19,6 +22,13 @@ task('style', () => {
     .pipe(dest(path.toCss));
 });
 
+// task('compress', () => {
+//   return src(path.fromImg)
+//     .pipe(imagemin())
+//     .pipe(dest(path.toImg));
+// });
+
 task('watch', () => {
   watch(path.toSass, series('style'));
+  // watch(path.fromImg, series('compress'));
 });

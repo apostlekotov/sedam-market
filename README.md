@@ -1,6 +1,8 @@
 # Sedam Market
 
-> Website for grocery - [sedam.com.ua](https://sedam.com.ua)
+> Cooperative website of the grocery chain with a list of promotional offers - [sedam.com.ua](https://sedam.com.ua)
+
+![sedam.com.ua](https://raw.githubusercontent.com/apostlekotov/kotovts/main/public/img/projects/sedam.png)](https://sedam.com.ua)
 
 ## Set up (Web App)
 

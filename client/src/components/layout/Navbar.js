@@ -6,8 +6,7 @@ function Navbar() {
     <header>
       <div>
         <Link to='/' className='logo'>
-          <img src='/img/logo/sedam-tomato.svg' alt='Sedam Market Logo' />
-          <img src='/img/logo/sedam-text.svg' alt='Sedam Market Logo' />
+          <img src='/img/logo/sedam-logo-2024.svg.svg' alt='Sedam Market Logo' />
         </Link>
 
         <input type='checkbox' id='onoff' />
